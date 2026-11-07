@@ -34,3 +34,10 @@ A bare ``name`` key (no asterisk, no number) is passed through untouched — we
 assume the caller reads plain parameters directly from their header dict.
 Continuation indexes are compared numerically, so ``name*10*`` correctly sorts
 after ``name*2*``.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
